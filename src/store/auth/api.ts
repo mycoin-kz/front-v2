@@ -1,4 +1,6 @@
-export const base_url = "https://127.0.0.1:8000/api/";
+export const base_url = import.meta.env.DEV
+  ? "https://127.0.0.1:8000/api/"
+  : "https://back-app-2y9c7.ondigitalocean.app/api/";
 // export const base_url = 'https://back-app-2y9c7.ondigitalocean.app/api/'
 
 export const API_REGISTER = base_url + "auth/register";
