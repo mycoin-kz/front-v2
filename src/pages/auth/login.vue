@@ -33,7 +33,7 @@ import { facebookLogin } from "@/store/auth/facebook/login";
 import { setup as googleSetup } from "@/store/auth/google/init";
 import { googleLoginLink } from "@/store/auth/api";
 
-import { ref, computed, inject } from "vue";
+import { ref } from "vue";
 import { storeToRefs } from "pinia";
 
 import InputGroup from "@/components/Auth/InputGroup.vue";

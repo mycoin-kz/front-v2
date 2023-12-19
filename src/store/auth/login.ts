@@ -1,12 +1,9 @@
 import { defineStore } from "pinia";
 import { useAuth } from "./token";
-import { API_LOGIN, API_LOGOUT } from "./api";
+import { API_LOGIN, API_LOGOUT, api } from "./api";
 // @ts-expect-error
 import { notify } from "@kyvg/vue3-notification";
 import { useStore } from "..";
-import _axios from "axios";
-
-const axios = _axios.create({ withCredentials: true });
 
 export const useLogin = defineStore("login", {
   state: () => ({
@@ -16,7 +13,7 @@ export const useLogin = defineStore("login", {
     login(payload: any) {
       const auth = useAuth();
       this.loading = true;
-      axios
+      api
         .post(API_LOGIN, payload)
         .then(() => {
           auth.setToken("AUTH_TOKEN");
@@ -48,7 +45,7 @@ export const useLogin = defineStore("login", {
     logout() {
       const auth = useAuth();
       this.loading = true;
-      axios
+      api
         .post(API_LOGOUT)
         .then(() => {
           notify({

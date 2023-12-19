@@ -1,8 +1,20 @@
+import { CookieJar } from "tough-cookie";
+import { wrapper } from "axios-cookiejar-support";
+import _axios from "axios";
+
 export const base_url = import.meta.env.DEV
   ? "https://127.0.0.1:8000/api/"
   : "https://back-app-2y9c7.ondigitalocean.app/api/";
-// export const base_url = 'https://back-app-2y9c7.ondigitalocean.app/api/'
 
+const jar = new CookieJar();
+export const api = wrapper(
+  _axios.create({
+    withCredentials: true,
+    xsrfHeaderName: "X-CSRFToken",
+    baseURL: base_url,
+    jar,
+  })
+);
 export const API_REGISTER = base_url + "auth/register";
 export const API_LOGIN = base_url + "auth/login/";
 export const API_LOGOUT = base_url + "auth/logout/";

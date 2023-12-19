@@ -1,20 +1,14 @@
 // @ts-expect-error
 import { notify } from "@kyvg/vue3-notification";
 import { defineStore } from "pinia";
-import { base_url as django_url } from "./auth/api";
+import { api } from "./auth/api";
 import { useAuth } from "./auth/token";
 import fulldata_json from "./fulldata.json";
 import summary_json from "./summary.json";
 import signals_json from "./signals.json";
 
-import _axios from "axios";
-
-const axios = _axios.create();
-
-/* eslint-disable */
 export const useStore = defineStore("main", {
   state: () => ({
-    base_url: "https://seashell-app-wiort.ondigitalocean.app/",
     loading: false,
     loading_overall: false,
     overall_tokens: [] as any[],
@@ -31,14 +25,14 @@ export const useStore = defineStore("main", {
       this.tokens[id] = {};
 
       return new Promise((resolve, reject) => {
-        const fulldata = axios.get(this.base_url + `fulldata/${id}`).then((res) => {
+        const fulldata = api.get(`fulldata/${id}`).then((res) => {
           this.tokens[id].fulldata = res.data;
         });
 
-        const signalsdata = axios.get(this.base_url + `signalsdata/${id}`).then((res) => {
+        const signalsdata = api.get(`signalsdata/${id}`).then((res) => {
           this.tokens[id].signalsdata = res.data;
         });
-        const summarydata = axios.get(this.base_url + `summarydata/${id}`).then((res) => {
+        const summarydata = api.get(`summarydata/${id}`).then((res) => {
           this.tokens[id].summarydata = res.data;
         });
         Promise.all([fulldata, signalsdata, summarydata])
@@ -69,8 +63,8 @@ export const useStore = defineStore("main", {
       this.loading_overall = true;
       console.log("fetching overall tokens...");
       return new Promise((resolve, reject) => {
-        axios
-          .get(this.base_url + `summarydata`)
+        api
+          .get("overall_tokens")
           .then((res) => {
             this.overall_tokens = res.data;
             this.loading_overall = false;
@@ -103,8 +97,8 @@ export const useStore = defineStore("main", {
       this.watchlist.loading = true;
       const store = useAuth();
       return new Promise((resolve, reject) => {
-        axios
-          .get(django_url + "watchlist", { withCredentials: true })
+        api
+          .get("watchlist", { withCredentials: true })
           .then((res) => {
             this.watchlist.data = res.data.map(
               (el: any) =>
@@ -133,11 +127,10 @@ export const useStore = defineStore("main", {
     },
     async addToWatchlist(token_id: string) {
       this.watchlist.loading = true;
-      const store = useAuth();
       return new Promise((resolve, reject) => {
-        axios
+        api
           .post(
-            django_url + "watchlist",
+            "watchlist",
             {
               token: token_id,
             },
@@ -170,10 +163,9 @@ export const useStore = defineStore("main", {
     },
     async removeFromWatchlist(token_id: string) {
       this.watchlist.loading = true;
-      const store = useAuth();
       return new Promise((resolve, reject) => {
-        axios
-          .delete(django_url + "watchlist/" + token_id, { withCredentials: true })
+        api
+          .delete("watchlist/" + token_id, { withCredentials: true })
           .then((res) => {
             this.watchlist.data = res.data.map(
               (el: any) =>

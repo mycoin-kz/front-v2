@@ -2,7 +2,7 @@
   <aside class="sidebar">
     <div class="logo-sidebar">
       <Icons icon="logo" class="logo-sidebar-image"></Icons>
-      <h3>Coinfolio</h3>
+      <h3>MYCOIN.KZ</h3>
     </div>
 
     <nav class="sidebar-nav">
