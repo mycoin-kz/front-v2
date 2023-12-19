@@ -2,9 +2,7 @@ import { CookieJar } from "tough-cookie";
 import { wrapper } from "axios-cookiejar-support";
 import _axios from "axios";
 
-export const base_url = import.meta.env.DEV
-  ? "https://127.0.0.1:8000/api/"
-  : "https://back-app-2y9c7.ondigitalocean.app/api/";
+export const base_url = import.meta.env.VITE_API_BASE_URL;
 
 const jar = new CookieJar();
 export const api = wrapper(
