@@ -1,6 +1,7 @@
 import { CookieJar } from "tough-cookie";
 import { wrapper } from "axios-cookiejar-support";
 import _axios from "axios";
+import Cookies from "js-cookie";
 
 export const base_url = import.meta.env.VITE_API_BASE_URL;
 
@@ -8,8 +9,11 @@ const jar = new CookieJar();
 export const api = wrapper(
   _axios.create({
     withCredentials: true,
-    xsrfHeaderName: "X-CSRFToken",
+    // xsrfHeaderName: "X-CSRFToken",
     baseURL: base_url,
+    headers: {
+      "X-CSRFToken": Cookies.get("XSRF-TOKEN"),
+    },
     jar,
   })
 );
