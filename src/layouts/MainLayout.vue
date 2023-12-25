@@ -13,11 +13,11 @@ import AppHeader from "@/components/Header.vue";
 import Sidebar from "@/components/Sidebar.vue";
 
 const links = [
-  {
-    name: "My Profile",
-    icon: "person",
-    availible: true,
-  },
+  // {
+  //   name: "My Profile",
+  //   icon: "person",
+  //   availible: true,
+  // },
   {
     name: "Feed",
     icon: "feed",
@@ -33,11 +33,11 @@ const links = [
     icon: "star-rounded",
     availible: true,
   },
-  {
-    name: "Portfolio",
-    icon: "stock",
-    availible: false,
-  },
+  // {
+  //   name: "Portfolio",
+  //   icon: "stock",
+  //   availible: false,
+  // },
 ];
 </script>
 

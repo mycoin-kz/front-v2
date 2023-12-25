@@ -9,11 +9,12 @@ const jar = new CookieJar();
 export const api = wrapper(
   _axios.create({
     withCredentials: true,
-    // xsrfHeaderName: "X-CSRFToken",
+    xsrfHeaderName: "X-CSRFToken",
+    xsrfCookieName: "XSRF-TOKEN",
     baseURL: base_url,
-    headers: {
-      "X-CSRFToken": Cookies.get("XSRF-TOKEN"),
-    },
+    // headers: {
+    //   "X-CSRFToken": Cookies.get("XSRF-TOKEN") || "NO-TOKEN",
+    // },
     jar,
   })
 );
